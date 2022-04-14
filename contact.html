@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/custom.css">
+    <title>Contactanos</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg  p-0">
+            <div class="w-100 d-flex flex-column justify-content-center ">
+                <div class="w-100 text-center nav-top">
+                    <a class="navbar-brand " href="#"><img src="./assets/franco0.png" alt="" class="logo"></a>
+                </div>
+
+                <div class="nav-bottom">
+                    <div class="nav-b-container d-flex justify-content-evenly p-3">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <!-- <a href="#"> HOME</a> -->
+                        <!--  -->
+                        <button class="buttonNav "> <span><a href="./index.html">HOME</a></span></button>
+                        <button class="buttonNav "> <span><a href="./farmacia.html">FARMACIA</a></span></button>
+                        <button class="buttonNav"> <span><a href="./juguetes.html">JUGUETES</a></span></button>
+                        <button class="buttonNav buttonNavActive"> <span><a href="#">CONTACTO</a></span></button>
+                        <!-- <a href="./juguetes.html">JUGUETES</a> -->
+                        <!-- <a href="./contact.html">CONTACT</a> -->
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <main >
+<div id="contenerdorForm">
+    <h2 id="tituloContacto" class="text-center mb-4">Datos de Contacto</h2>
+            <form id="form1" v-on:submit="alerta" onsubmit="return  false">
+                <fieldset>
+                    <div class="d-flex flex-column flex-lg-wrap gap-5 mt-2">
+                        <div class="d-flex flex-wrap">
+                            <label class="col-6">                  
+                                <input class="inputForm" type="text" id="name" placeholder="Nombre" required>
+                            </label>
+                            <label class="col-6">                
+                                <input class="inputForm" type="text" id="lastname" placeholder="Apellido" required>
+                            </label>
+
+                        </div>
+                        <div class = "d-flex flex-wrap">
+                            <label class="col-6">
+                         
+                                <input class="inputForm" type="number" name="telefono" id="number" placeholder="Número de teléfono" required>
+                            </label>
+                            <label class="col-6">
+                  
+                                <input class="inputForm" type="email" name="email" id="email" placeholder="Correo Electrónico" required>
+                            </label>
+                            
+                        </div>
+
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>¿Qué mascota(s) tiene?</option>
+                            <option value="1">Perro</option>
+                            <option value="2">Gato</option>
+                            <option value="3">Ambos</option>
+                        </select>
+
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button btn btn-outline-light" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        Deje aquí su reseña!
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse hide"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="form-floating">
+                                            
+                                            <div id="form" class="d-flex justify-content-end gap-4 aling-item-start w-100">
+                                                <label for="estrellas">Calificanos</label>
+                                                <p id="estrellas" class="clasificacion">
+                                                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                                    --><label class="label"  for="radio1">★</label><!--
+                                                    --><input  id="radio2" type="radio" name="estrellas" value="4"><!--
+                                                    --><label class="label"  for="radio2">★</label><!--
+                                                    --><input  id="radio3" type="radio" name="estrellas" value="3"><!--
+                                                    --><label class="label"  for="radio3">★</label><!--
+                                                    --><input  id="radio4" type="radio" name="estrellas" value="2"><!--
+                                                    --><label class="label"  for="radio4">★</label><!--
+                                                    --><input  id="radio5" type="radio" name="estrellas" value="1"><!--
+                                                    --><label class="label" for="radio5">★</label>
+                                                </p>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Escriba su Comentario"
+                                                id="floatingTextarea"></textarea>
+                                            <label for="floatingTextarea">Comentario</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+                <div class="d-flex mt-2 mb-2 justify-content-center gap-1 w-100">
+                    <button class="btn btn-outline-dark">Enviar</button>
+                    <button type="reset" class="btn btn-outline-dark">Reiniciar</button>
+                </div>
+            </form>
+        </div>
+<section class="comentarios">
+    <button id="button" class="btn btn-outline-dark btn collapsed p-0" type="button" data-bs-toggle="collapse" p-0 
+        data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+       <span class="button_top"> Opiniones </span>
+      </button>
+    <div class="collapse show" id="collapseExample" >
+        <div class="card card-body">
+       <section class="d-flex justify-content-between mx-3 mt-5 mb-3  ">
+        <div class="row h-25 gap-3">
+         
+<!-- "card col-3 w-auto card md-col-3 " -->
+            <div class= "card text-dark bg-light mb-3" style="max-width: 20rem;" v-for="opinion in [1,2,3,4,5]">
+                <h5 class="card-title">Ricardo Arjona</h5>
+                <p class="clasificacion d-flex bg-danger align-items-sm-start" >
+                    <label class="label2 EstrellaActive">★</label>
+                    <label class="label2 EstrellaActive">★</label>
+                    <label class="label2 EstrellaActive">★</label>
+                    <label class="label2 EstrellaActive">★</label>
+                </p>
+                <p class="card-text p">"Buena relación calidad-precio y productos de alta calidad"</p>
+            </div>
+            
+
+        </section>   
+        </div>
+      </div>
+   
+    </section>
+
+        </main>
+
+
+        <footer v-bind:class=fondo class="d-flex h-auto w-100 row g-0 ">
+            <section class="sectionRedesF col-12 ">
+                <img id="imgFooter" src="./assets/perritoFooter2.png" alt="" v-on:click="secret">
+
+                <div class="d-flex col-3 justify-content-center align-items-center">
+                    <a href="" style="text-decoration: none; color: grey;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor"
+                            class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                        </svg> <span>Instagram</span>
+                    </a>
+                </div>
+                <div class="d-flex col-3 justify-content-center align-items-center">
+                    <a href="" style="text-decoration: none; color: grey;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-facebook align-middle" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                        </svg> <span>Facebook</span>
+                    </a>
+                </div>
+                <div class="d-flex col-3 justify-content-center align-items-center">
+                    <a href="" style="text-decoration: none; color: grey;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-envelope-open" viewBox="0 0 16 16">
+                            <path
+                                d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882l-6-3.2ZM15 7.383l-4.778 2.867L15 13.117V7.383Zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2Z" />
+                        </svg> <span>Mail</span>
+                    </a>
+                </div>
+
+            </section>
+
+            <section class=""> <p class="pt-2 h-100  justify-content-center align-content-center d-flex w-100"> Grupo "C" Copyright © 2022</p></section>
+
+        </footer>
+
+    </div>
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"> </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="./script/main.js"></script>
+</body>
+
+</html>

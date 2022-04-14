@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "app">
+        <!--  -->
+        <div class = "sticky-button">
+            <span id = "sidebar-toggle" class = "sidebar-toggle" style = "cursor: pointer" onclick="openNav();"><i class="fa-solid fa-basket-shopping"></i></span>
+            
+        </div>
+        <!--  -->
+        <div id = "sidebar" class = "sidebar">
+            <div id = "sidebar-background" class = "sidebar-background">
+                <div class = "sidebar-top sidebar-div">
+                    <h5> Carrito de compras </h5>
+                </div>
+                <div class = "sidebar-content sidebar-div">
+                    <div class = "sidebar-content-2">
+                        <ul>
+                            <li v-for="(value, key) in products"> 
+                                <div class="card" style="width: 90%">
+                                    <div class = "card-horizontal">
+                                        <div class="img-square-wrapper">
+                                            <img class="card-img-top" :src="value.product_img" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="card-title"> {{ value.product_name }} </h4>
+                                            <p class="card-text"> Precio: {{ value.product_price }} Cantidad: {{ value.product_quantity }} </p>
+                                            <button class="minimal btn btn-info btn-sm" v-on:click="increaseValue(key, value.product_name)">+</button> <button class="minimal btn btn-info btn-sm" v-on:click="decreaseValue(key, value.product_name)">-</button>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class = "sidebar-bottom sidebar-div">
+                    <div class = "sidebar-text">
+                        <b> Subtotal: </b> <span class = "price">${{ total }}</span>
+                        <p>Dirígete a la página de finalizar pedido para conocer los gastos de envío.</p>
+                        
+                    </div>
+                    <div class = "sidebar-bottom-item">
+                        <button class = "btn btn-sidebar btn-info" onclick="location.href='cart.html'"> Ver carrito </button>
+                    </div>
+                    <div class = "sidebar-bottom-item">
+                        <button class = "btn btn-sidebar btn-info" v-on:click="removeCart()"> Vaciar Carrito </button>
+                    </div>
+                    <div class = "sidebar-bottom-item">
+                        <button class = "btn btn-sidebar btn-info" onclick="closeNav();"> Seguir comprando </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class = "container">
+            <div class = "table">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">  </th>
+                        <th scope="col">  </th>
+                        <th scope="col"> Producto </th>
+                        <th scope="col"> Precio </th>
+                        <th scope="col"> Cantidad </th>
+                        <th scope="col"> Subtotal </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(value, key) in products"> 
+                            <th scope = "row"> <span style = "color:red; font-size: 20px; cursor: pointer;" v-on:click="removeProduct(value.product_name)"> <i class="fa-solid fa-trash-can"></i> </span> </th>
+                            <th> <img :src="value.product_img" alt="Card image cap" width = "50" height = "50"> </th>
+                            <th> {{ value.product_name }} </th>
+                            <th> ${{ value.product_price }} </th>
+                            <th> 
+                                <div class = "quantity"> 
+                                    <a href="javascript: void(0)" class = "button-tbl"> + </a> 
+                                    <input type="number" :id="'quantity-'+key" min = "0" readonly> 
+                                    <a href="javascript: void(0)" class = "button-tbl"> - </a>
+                                </div>
+                            </th>
+                            <th> ${{ value.product_subtotal }} </th>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div>Total: {{ total }}</div>
+        </div>
+    </div>
+</body>
+</html>
