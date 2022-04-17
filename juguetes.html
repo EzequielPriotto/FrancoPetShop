@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="juguetes">
 
 <head>
     <meta charset="UTF-8">
@@ -14,17 +14,17 @@
 </head>
 
 <body>
-    <div class="fondo">
+    <div id="app" class="fondo">
         <div class="sticky-button">
             <span id="sidebar-toggle" class="sidebar-toggle" style="cursor: pointer" onclick="openNav();"><i
                     class="fa-solid fa-basket-shopping"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        99+
+                        {{storageLength}}
                         <span class="visually-hidden">unread messages</span>
                       </span>
                 </span>
         </div>
-        <div id="app" class="d-flex flex-column w-100  justify-content-center">
+        <div  class="d-flex flex-column w-100  justify-content-center">
             <nav class="navbar navbar-expand-lg  p-0">
                 <div class="w-100 d-flex flex-column justify-content-center ">
                     <div class="w-100 text-center nav-top">
@@ -42,7 +42,7 @@
                             <!--  -->
                             <button class="buttonNav "> <span><a href="./index.html">HOME</a></span></button>
                             <button class="buttonNav "> <span><a href="./farmacia.html">FARMACIA</a></span></button>
-                            <button class="buttonNav buttonNavActive"> <span><a href=".#">JUGUETES</a></span></button>
+                            <button class="buttonNav buttonNavActive"> <span><a href="./juguetes.html">JUGUETES</a></span></button>
                             <button class="buttonNav "> <span><a href="./contact.html">CONTACTO</a></span></button>
                             <!-- <a href="./juguetes.html">JUGUETES</a> -->
                             <!-- <a href="./contact.html">CONTACT</a> -->
@@ -52,20 +52,20 @@
                 </div>
             </nav>
 
-            <section class="p-4 mt-5" id="contenedorCards">
-                <div class="row d-flex justify-content-center px-5 mx-2">
-                    <div class="col-sm-6 col-lg-4 text-center mb-4" v-for="producto in arrayJuguetes">
+            <section class="mt-5" id="contenedorCards">
+                <div class="row d-flex justify-content-center px-0 px-lg-4 mx-2">
+                    <div class="col-sm-6 col-lg-4 text-center mb-4" v-for="(producto,i) in arrayJuguetes">
                         <div class="card mx-3" style="border-radius: 20px;">
                             <div class="my-1 mt-3 mx-3">
-                                <img :src="producto.imagen" class="card-img-top" alt="foto">
-                                   
+                                <img :src="producto.imagen"
+                                    class="card-img-top" alt="...">
                             </div>
                             <div class="card-body justify-content-center">
                                 <h5 class="card-title" style="color: #3cabdd!important">{{producto.nombre}}</h5>
-                                <span class="badge rounded-pill bg-info text-ligth mb-3">Stock: {{producto.stock}} </span>
+                                <span class="badge rounded-pill bg-info text-ligth mb-3">Stock: {{stocksJ[i]}} </span>
                                 <p>
                                      <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" :data-bs-target="'#id' + producto._id">
+                                <button  type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" :data-bs-target="'#id' + producto._id" >
                                     Mas info!
                                 </button>
                                 
@@ -74,11 +74,11 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">{{producto.descripcion}}</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">Descripción</h5>
                                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                         </div>
                                         <div class="modal-body">
-                                            <p class="card-text text-muted">Excelente juguete para hacer que su perro haga más ejercicio y libere tensiones. Ayuda a mantenerlo activo y de esa manera se mantendrá alejado de los muebles. Al ser de silicona de primer nivel, puede ser utilizado al aire libre aunque también como mordillo dentro de la casa.</p>
+                                            <p class="card-text text-muted">{{producto.descripcion}}</p>
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
@@ -89,13 +89,16 @@
                                 </div>
                                 </p>
                                 <p class="card-text text-danger"> <strong>${{producto.precio}}</strong> </p>
-                                <a  @click="agregarProducto(producto)" class="btn btn-outline-success mb-2" style="border-radius: 35px;">Agregar al
+                                <a @click="agregarProducto(producto)" class="btn btn-outline-success mb-2" style="border-radius: 35px;">Agregar al
                                     carro</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <!-- {{actualizarStock}} -->
+
+            
             <div id="sidebar" class="sidebar">
                 <div id="sidebar-background" class="sidebar-background">
                     <div class="sidebar-top sidebar-div">
@@ -114,9 +117,9 @@
                                             </div>
                                             <div class="card-body">
                                                 <h6 class="card-title"> {{producto.nombre}} </h4>
-                                                    <p class="card-text"> Precio:{{producto.precio}} Cantidad: {{producto.cantidad}} </p>
-                                                    <button class="minimal btn btn-sm">+</button> 
-                                                    <button class="minimal btn btn-sm">-</button>
+                                                    <p class="card-text"> Precio: {{producto.precio}} Cantidad: {{producto.cantidad}} </p>
+                                                    <button class="minimal btn btn-sm" @click="agregarProducto(producto)">+</button> 
+                                                    <button class="minimal btn btn-sm" @click="restarProducto(producto)">-</button>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +143,7 @@
                             </button>
                         </div>
                         <div class="sidebar-bottom-item">
-                            <button style = "font-size: 12px;" class="button-carrito btn-sidebar">
+                            <button style = "font-size: 12px;" class="button-carrito btn-sidebar" @click="vaciarCarrito()">
                                 <span class="label">Vaciar Carrito</span>
                                 <span class="icon">
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
@@ -158,6 +161,7 @@
                     </div>
                 </div>
             </div>
+
             <footer v-bind:class=fondo class="d-flex h-auto w-100 row g-0 fondoFooter">
                 <section class="sectionRedesF col-12 ">
                     <img id="imgFooter" src="./assets/perritoFooter.png" alt="" v-on:click="secret">

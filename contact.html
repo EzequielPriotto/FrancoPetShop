@@ -44,18 +44,18 @@
         <main>
             <div id="contenerdorForm">
                 <h2 id="tituloContacto" class="text-center mb-4">Datos de Contacto</h2>
-                <form id="form1" v-on:submit="alerta" onsubmit="return  false">
+                <form id="form1" v-on:submit="alerta">
                     <fieldset>
                         <div class="d-flex flex-column flex-lg-wrap gap-5 mt-2">
 
                             <div class="d-flex  row">
                               
                                 <label class="col-12 col-lg-6">
-                                    <input class="inputForm" type="text" id="name" placeholder="Nombre" required>
+                                    <input class="inputForm" type="text" id="name" placeholder="Nombre" required v-model="nombre">
                                 </label>
                               
                                 <label class="col-12 col-lg-6">
-                                    <input class="inputForm" type="text" id="lastname" placeholder="Apellido" required>
+                                    <input class="inputForm" type="text" id="lastname" placeholder="Apellido" required v-model="apellido">
                                 </label>
 
                             </div>
@@ -92,35 +92,35 @@
                                     <div id="collapseOne" class="accordion-collapse collapse hide"
                                         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            <div class="form-floating">
-
+                                            <div class="form-floating ">
+                                            <!-- aling-item-start  -->
                                                 <div id="form"
-                                                    class="d-flex justify-content-end gap-4 aling-item-start w-100">
+                                                    class="d-flex gap-4 justify-content-end aling align-items-start w-100 flex-wrap">
                                                     <label for="estrellas">Calificanos</label>
                                                     <p id="estrellas" class="clasificacion">
-                                                        <input id="radio1" class="radioEstrella" type="radio" name="estrellas" value="5">
+                                                        <input id="radio1" class="radioEstrella" type="radio" name="estrellas" v-bind:value="5" v-model="calificacion">
                                                         <!--
-                                                    --><label class="label" for="radio1">★</label>
+                                                    --><label class="labelStar" for="radio1">★</label>
                                                         <!--
-                                                    --><input id="radio2" class="radioEstrella" type="radio" name="estrellas" value="4">
+                                                    --><input id="radio2" class="radioEstrella" type="radio" name="estrellas" v-bind:value="4" v-model="calificacion">
                                                         <!--
-                                                    --><label class="label" for="radio2">★</label>
+                                                    --><label class="labelStar" for="radio2">★</label>
                                                         <!--
-                                                    --><input id="radio3" class="radioEstrella" type="radio" name="estrellas" value="3">
+                                                    --><input id="radio3" class="radioEstrella" type="radio" name="estrellas" v-bind:value="3" v-model="calificacion">
                                                         <!--
-                                                    --><label class="label" for="radio3">★</label>
+                                                    --><label class="labelStar" for="radio3">★</label>
                                                         <!--
-                                                    --><input id="radio4" class="radioEstrella" type="radio" name="estrellas" value="2">
+                                                    --><input id="radio4" class="radioEstrella" type="radio" name="estrellas" v-bind:value="2" v-model="calificacion">
                                                         <!--
-                                                    --><label class="label" for="radio4">★</label>
+                                                    --><label class="labelStar" for="radio4">★</label>
                                                         <!--
-                                                    --><input id="radio5" class="radioEstrella" type="radio" name="estrellas" value="1">
+                                                    --><input id="radio5" class="radioEstrella" type="radio" name="estrellas" v-bind:value="1" v-model="calificacion">
                                                         <!--
-                                                    --><label class="label" for="radio5">★</label>
+                                                    --><label class="labelStar" for="radio5">★</label>
                                                     </p>
                                                 </div>
                                                 <textarea class="form-control" placeholder="Escriba su Comentario"
-                                                    id="floatingTextarea"></textarea>
+                                                    id="floatingTextarea" v-model="opinion" ></textarea>
                                                 <label for="floatingTextarea">Comentario</label>
                                             </div>
                                         </div>
@@ -131,8 +131,8 @@
                         </div>
                     </fieldset>
                     <div class="d-flex flex-wrap mt-3 mb-2 justify-content-center gap-3">
-                        <button class=" finalForm btn btn-outline-dark botonContacto">Enviar</button>
-                        <button type="reset" class="finalForm btn btn-outline-dark botonContacto">Reiniciar</button>
+                        <button @click="funcionOpiniones" class=" finalForm btn btn-outline-dark botonContacto xl-">Enviar</button>
+                        <button type="reset" class="finalForm btn btn-outline-dark botonContacto xl-">Reiniciar</button>
                     </div>
                 </form>
             </div>
@@ -142,6 +142,7 @@
                     aria-controls="collapseExample">
                     <span class="button_top "> Opiniones </span>
                 </button>
+
                 <div class="collapse show" id="collapseExample">
                     <div class="card card-body">
                         <section class="d-flex justify-content-between mx-3 mt-5 mb-3  ">
@@ -149,15 +150,14 @@
 
                      
                                 <div class="comentario card text-dark bg-light mb-3 d-flex flex-column" 
-                                    v-for="opinion in [1,2,3,4,5]">
-                                    <h5 class="card-title">Ricardo Arjona</h5>
+                                    v-for="opinionTemp in opinionesGuardadas">
+                                    <h5 class="card-title">{{opinionTemp.nombre}} {{opinionTemp.apellido}}</h5>
                                     <p class="clasificacion d-flex justify-content-end">
-                                        <label class="label2 EstrellaActive">★</label>
-                                        <label class="label2 EstrellaActive">★</label>
-                                        <label class="label2 EstrellaActive">★</label>
-                                        <label class="label2 EstrellaActive">★</label>
+                                        <label class="label2 EstrellaActive" v-for="index in opinionTemp.calificacion">★</label>
+                                       
+                                     
                                     </p>
-                                    <p class="card-text p">"Buena relación calidad-precio y productos de alta calidad"
+                                    <p class="card-text p">{{opinionTemp.opinion}}
                                     </p>
                                 </div>
 

@@ -1,5 +1,5 @@
   <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="farmacia"> 
 
 <head>
     <meta charset="UTF-8">
@@ -61,8 +61,17 @@
                                     class="card-img-top" alt="...">
                             </div>
                             <div class="card-body justify-content-center">
-                                <h5 class="card-title" style="color: #3cabdd!important">{{producto.nombre}}</h5>
-                                <span class="badge rounded-pill bg-info text-ligth mb-3">Stock: {{stocksF[i]}} </span>
+                                <h5 class="card-title" style="color: #3298c7!important">{{producto.nombre}}</h5>
+                                <div v-if="stocksF[i] > 3">
+                                    <span class="badge rounded-pill bg-info text-ligth mb-3">Stock: {{stocksF[i]}} </span>
+                                </div>
+                                <div v-else-if="3 > stocksF[i] && stocksF[i] != 0">
+                                    <span class="badge rounded-pill text-ligth mb-3" style = "background-color: #dcc335;">Stock: {{stocksF[i]}} </span>
+                                </div>
+                                <div v-else>
+                                    <span class="badge rounded-pill text-ligth mb-3" style = "background-color: #dc3545;">Stock: {{stocksF[i]}} </span>
+                                </div>
+                                
                                 <p>
                                      <!-- Button trigger modal -->
                                 <button  type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" :data-bs-target="'#id' + producto._id" >
