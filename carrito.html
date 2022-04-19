@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+                                              <!DOCTYPE html>
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Carrito </title>
+    <title>Franco PetShop</title>
+    <link rel="shortcut icon" href="favico.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./style/sidebar.css">
     <link rel="stylesheet" href="./style/custom.css">
 </head>
-<body>
+<body >
 
 
 
@@ -19,28 +20,22 @@
 
 
     
-    <div id = "app" class="fondo">
-        <nav class="navbar navbar-expand-lg p-0">
-            <div class="w-100 d-flex flex-column justify-content-center ">
+    <div id = "app" class="fondo d-flex flex-column justify-content-between div-carrito">
+        <nav class="navbar navbar-expand-lg p-0 mb-3">
+            <div class="w-100  d-flex flex-column justify-content-center ">
                 <div class="w-100 text-center nav-top">
                     <a class="navbar-brand " href="#"><img src="./assets/franco0.png" alt="" class="logo"></a>
                 </div>
 
                 <div class="nav-bottom">
-                    <div class="nav-b-container d-flex justify-content-evenly p-3">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <!-- <a href="#"> HOME</a> -->
+                    <div class="nav-b-container d-flex justify-content-evenly py-3 px-1 gap-1">
+                     
                         <!--  -->
                         <button class="buttonNav "> <span><a href="./index.html">HOME</a></span></button>
                         <button class="buttonNav "> <span><a href="./farmacia.html">FARMACIA</a></span></button>
                         <button class="buttonNav "> <span><a href="./juguetes.html">JUGUETES</a></span></button>
                         <button class="buttonNav "> <span><a href="./contact.html">CONTACTO</a></span></button>
-                        <!-- <a href="./juguetes.html">JUGUETES</a> -->
-                        <!-- <a href="./contact.html">CONTACT</a> -->
+                   
 
                     </div>
                 </div>
@@ -48,8 +43,29 @@
         </nav>
 
         <!--  -->
-        <div class = "mx-3 bg-light container-carrito">
-            <div class = "table-container">
+        <div v-if="storageLength == 0">
+            <div class="container-fluid mt-100">
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <div class="card" style = "background-color: white;">
+                            <div class="card-header">
+                                <h5> Carrito </h5>
+                            </div>
+                            <div class="card-body cart">
+                                <div class="col-sm-12 empty-cart-cls text-center"> 
+                                    <img src="https://indyme.com/wp-content/uploads/2020/11/shopping-cart-icon.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                    <h3><strong> Tu carrito está vacio </strong></h3>
+                                    <h4> Añade algún producto :) </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else id = "table-container-a" class = "mx-lg-3 bg-light container-carrito">
+            
+            <div  class = "table-container table-responsive-sm">
                 <table class="table">
                     <thead>
                       <tr>
@@ -65,7 +81,7 @@
                      
                         <tr v-for="(producto,indice) in storageCarrito" tr> 
                             <td scope = "row"> <span class = "deletedBtn" @click="eliminarProducto(producto)"> <i style = "padding-top: 25%; padding-left: 30%;" class="fa-solid fa-trash-can" ></i> </span> </td>
-                            <td>  </td>
+                            <td> <img :src="producto.imagen" alt = "?" width = "50" height = "50"> </td>
                             <td> {{ producto.nombre }} </td>
                             <td> {{ producto.precio }} </td>
                             <td> 
@@ -118,7 +134,7 @@
                         <button type="button" class="button-carrito ms-2" @click="crearBoleta">
                             <span class="label">Finalizar</span>
                             <span class="icon">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
                             </span>
                         </button>
                     </div>

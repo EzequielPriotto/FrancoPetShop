@@ -57,6 +57,7 @@
     transition: 0.5s;
 }
 
+
 .sidebar-div{
     width: 100%;
 }
@@ -116,6 +117,18 @@
     padding-top: 1%;
 }
 
+.sidebar-background-active{
+    left: 70.56%;
+}
+
+.sidebar-active{
+    left: 0%;
+}
+
+.sidebar-toggle-active{
+    left: 65%;
+}
+
 .btn-sidebar{
     width: 100%;
     border-radius: 0;
@@ -165,11 +178,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-.table-container{
-    margin-top: 2%;
-    
-}
-
 thead{
     background-color: #dfc3a6;
     border: none;
@@ -187,7 +195,7 @@ td{
 
 .checkout-container{
     width: 40%;
-    height: 300px;
+    padding: 1%;
 }
 
 .title-container{
@@ -226,4 +234,55 @@ td{
 
 .deletedBtn:hover{
     color: rgb(196, 36, 36);
+}
+
+@media (max-width: 768px){
+    .sidebar-toggle{
+        z-index: 10;
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        background-color: white;
+        top: 85%;
+        left: 85%;
+        transition: 0.5s;
+        border-radius: 50%;
+        /* border-top: 1px solid;
+        border-left: 1px solid;
+        border-right: 1px solid; 
+        border-bottom: 1px solid;  */
+        border-color: black;
+        padding-top: 0.6rem;
+        padding-left: 0.8rem;
+        font-size: 20px;
+        box-shadow: 0 1px 4px 0;
+    }
+
+    .checkout-container{
+        width: auto;
+    }
+
+    .sidebar-background{
+        z-index: 10;
+        height: 100%;
+        width: 60%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 100%;
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .sidebar-background-active{
+        left: 40%;
+    }
+    
+    .sidebar-active{
+        left: 0%;
+    }
+    
+    .sidebar-toggle-active{
+        left: 25%;
+    }
 }
