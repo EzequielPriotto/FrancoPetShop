@@ -1,44 +1,42 @@
+
 Vue.createApp({
   data() {
-
     return {
       data: [],
-
+      
       arrayJuguetes: [],
       arrayFarmacia: [],
+      
       storageListID: [],
       storageCarrito: [],
 
-      storageLength: 0,
-      subtotalCarrito: 0,
-
       originalFarmacia: [],
       originalJuguetes: [],
+
+      storageLength: 0,
+      subtotalCarrito: 0,
       dondeEstoy: "",
-      tipoEnvio: "retiro_fisico",
-
-      fondoOtaku: false,
-
+      
+      
       nombre: "",
       apellido: "",
       calificacion: 0,
       opinion: "",
-      nombreInput: "",
-      apellidoInput: "",
-      dniInput: "",
-
-
       opinionesGuardadas: [
-
       ],
-
-
+      
       filtros: {
         rangoPrecio: 0,
         criterioOrden: "Relevancia",
         valorBusqueda: "",
-      }
+      },
+      
+      tipoEnvio: "retiro_fisico",
+      nombreInput: "",
+      apellidoInput: "",
+      dniInput: "",
 
+      fondoOtaku: false,
     }
   },
 
@@ -46,32 +44,24 @@ Vue.createApp({
     // ALMACENAMOS EL ARRAY DEL CARRITO DE LA BASE DE DATOS EN MI JS
     let carrito
     carrito = JSON.parse(localStorage.getItem("cart"));
-
     // SI NO EXISTE CAMBIAMOS EL UNDEFINED POR UN ARRAY VACIO PARA PODER TRABAJAR CON EL CARRITO
     if (!carrito) {
       this.storageCarrito = []
     }
     // SI EXISTE LO ALMACENAMOS EN STORAGECARRITO
-
     else {
       this.storageCarrito = carrito;
     }
-
-
-
     // ITERAMOS EL CARRITO Y DEFINIMOS LA SUMA DE LOS SUBTOTALES
-
     let total = 0;
     this.storageCarrito.forEach(producto => {
       total += producto.subtotal
     });
 
     this.subtotalCarrito = total;
-
     // VERIFICAMOS EL LARGO DEL ARRAY DEL CARRITO PARA VER CUANTOS PRODUCTOS HAY
     // Y PODER CAMBIAR DE FORMA DINAMICA EL NUMERITO ROJO
     this.storageLength = this.storageCarrito.length;
-
     let guardarOpiniones
     guardarOpiniones = JSON.parse(localStorage.getItem("opinionesGuardadas"));
     if (!guardarOpiniones) {
@@ -99,9 +89,7 @@ Vue.createApp({
     } else {
       this.opinionesGuardadas = guardarOpiniones
     }
-
-
-    // LLAMAMOS A MI API
+    // LLAMAMOS A NUESTRA API
 
     fetch('https://apipetshop.herokuapp.com/api/articulos')
       .then(response => response.json())
@@ -122,6 +110,9 @@ Vue.createApp({
 
         html.id === "farmacia" ? this.dondeEstoy = "farmacia" : html.id === "juguetes" ? this.dondeEstoy = "juguetes" : ""
 
+        // PREGUNTA SI ESTA EN EL CARRITO, PARA ALMACENAR SU STOCK EN CASO DE QUE EXISTE EN EL CARRITO.
+        // ASI PODER HACERLO CONSISTENTE 
+
         this.arrayFarmacia.forEach(productoUsar => {
           let indexOfProduct = this.buscarProductoEnArray(productoUsar._id, this.storageCarrito);
           let indexOfArray = this.buscarProductoEnArray(productoUsar._id, this.arrayFarmacia);
@@ -137,30 +128,16 @@ Vue.createApp({
             productoUsar.stock = this.storageCarrito[indexOfProduct].stock;
           }
         })
-
-        // SI YA EXISTE, SIMPLEMENTE LE ASIGNAMOS A NUESTRA VARIABLE EL VALOR DE LOS STOCKS DE LA BASE DE DATOS
-
-
-
-        // LE ASIGNAMOS A NUESTRO ARRAYFARMACIA LOS PRODUCTOS DE JUGUETES
-
-
-
       })
   },
-
-
   methods: {
     funcionOpiniones() {
-
       let opinionTemp = {
         "nombre": this.nombre,
         "apellido": this.apellido,
         "calificacion": this.calificacion,
         "opinion": this.opinion,
       }
-
-
       this.opinionesGuardadas.push(opinionTemp)
       localStorage.setItem("opinionesGuardadas", JSON.stringify(this.opinionesGuardadas));
     },
@@ -171,7 +148,6 @@ Vue.createApp({
     // JIJIJA :D
 
     secret() {
-
       if (this.fondoOtaku == false) {
         Swal.fire({
           title: 'QUE EMPIECE LA FIESTA',
@@ -190,31 +166,25 @@ Vue.createApp({
       }
       else if (this.fondoOtaku == true) {
         this.fondoOtaku = false
-
       }
     },
-
     // AL TOCAR EL BOTON DE AGREGAR O + SE EJECUTA ESTA FUNCION
 
     agregarProducto(producto) {
       // GUARDAMOS AL PRODUCTO QUE SE QUIERE AGREGAR EN LA VARIABLE NUEVOPRODUCTO
       let nuevoProducto = producto
+      
       // GUARDAMOS TODOS LOS ID DE MI CARRITO DE LA BASE DE DATOS PARA COMPROBAR
       // SI YA EXISTE ALGUN PRODUCTO CON ESE ID EN NUESTRO CARRITO
-
       this.storageListID = this.storageCarrito.map(element => element._id)
-
 
       const agregarProductoAlCarrito = (array) => {
 
         if (!this.storageListID.includes(nuevoProducto._id)) {
-
           // SI NO EXISTE:
-
           // LE AGREGAMOS LA PROPIEDAD CANTIDAD 
           nuevoProducto.cantidad = 1;
           // LE QUITAMOS AL ARRAY STOCKS (EN EL ELEMENTO QUE CORRESPONDE) UNA UNIDAD
-
           let productoIndex = this.buscarProductoEnArray(producto._id, array);
           nuevoProducto.stock -= 1;
           nuevoProducto.subtotal = nuevoProducto.cantidad * nuevoProducto.precio;
@@ -224,9 +194,7 @@ Vue.createApp({
           array[productoIndex].stock = nuevoProducto.stock;
           localStorage.setItem("cart", JSON.stringify(this.storageCarrito));
           this.actualizarSubtotal();
-
         }
-
         else {
           // SI YA EXISTE, DEFINIMOS EL PRODUCTO EXISTENTE EN BASE AL ID DEL PRODUCTO TOCADO
           // PERO USANDO EL PRODUCTO DE LA BASE DE DATOS
@@ -259,7 +227,6 @@ Vue.createApp({
     },
 
     // AL TOCAR EL BOTON DE - SE EJECUTA ESTA FUNCION
-
     restarProducto(producto) {
       // GUARDAMOS AL PRODUCTO QUE SE QUIERE RESTAR UNA UNIDAD EN LA VARIABLE NUEVOPRODUCTO
       let nuevoProducto = producto;
@@ -310,7 +277,6 @@ Vue.createApp({
             Swal.fire(
               'Eliminado!',
               'El carrito ha sido vaciado con exito',
-
             ).then(() => {
               this.actualizarSubtotal();
               location.reload();
@@ -324,7 +290,7 @@ Vue.createApp({
           icon: 'error',
           title: 'Oops...',
           text: `El carrito se encuentra vacio!`,
-          position: 'top-start',
+          position: 'center',
         })
       }
 
@@ -383,7 +349,6 @@ Vue.createApp({
 
     // AL TOCAR VACIAR CARRITO SETEAMOS EL ARRAY EN []
 
-
     buscarProductoEnArray(id, array) {
       for (var i = 0; i < array.length; i++) {
         if (array[i]._id == id) {
@@ -392,7 +357,6 @@ Vue.createApp({
       }
       return -1;
     },
-
     // ITERAMOS SOBRE EL ARRAY BUSCANDO LA POSICION EN LA QUE EL ID QUE LE PASAMOS COINCIDA CON
     //  ALGUN ID QUE HAYA EN EL CARRITO, SI ENCUENTRA DEVUELVE EL INDICE, SI NO UN -1
 
@@ -413,10 +377,7 @@ Vue.createApp({
       })
 
     },
-
-
     //  NO TOCAR POR EL MOMENTO XD
-
     crearBoleta() {
 
       Swal.fire({
@@ -524,7 +485,6 @@ Vue.createApp({
   },
 
   computed: {
-
     filtrarMayorMenor() {
 
       if (this.filtros.criterioOrden == "Mayor") {
@@ -589,11 +549,8 @@ Vue.createApp({
       }
 
     }
-
   }
 }).mount('#app')
-
-
 
 var open = 0;
 function openNav() {
