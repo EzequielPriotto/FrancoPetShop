@@ -30,25 +30,26 @@
                 <div class="w-100 d-flex flex-column justify-content-center ">
                     <div class="w-100 text-center nav-top">
                         <a class="navbar-brand " href="#"><img src="./assets/franco0.png" alt="" class="logo"></a>
-    
+
                     </div>
-    
+
                     <div class="nav-bottom">
-                        <div class="nav-b-container d-flex justify-content-evenly p-3">
-                         
+                        <div class="nav-b-container d-flex justify-content-evenly gap-1 gap-lg-1 py-3 p-lg-3">
+
                             <button class="buttonNav "> <span><a href="./index.html">HOME</a></span></button>
                             <button class="buttonNav buttonNavActive"> <span><a href="#">FARMACIA</a></span></button>
                             <button class="buttonNav"> <span><a href="./juguetes.html">JUGUETES</a></span></button>
                             <button class="buttonNav"> <span><a href="./contact.html">CONTACTO</a></span></button>
-                         
+
                         </div>
                     </div>
                 </div>
             </nav>
 
 
-            <div class="d-flex justify-content-lg-between align-items-center gap-2 py-2 px-1 g-0  row-cols-lg-1 " id="barraFiltros">
-            
+            <div class="d-flex justify-content-lg-between align-items-center gap-2 py-2 px-1 g-0  row-cols-lg-1 "
+                id="barraFiltros">
+
 
                 <div class="dropdown col-lg-1 ">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -90,8 +91,8 @@
 
 
 
-                <div class="col-lg-1 d-flex">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Filtrar 
+                <div class="col-lg-1 d-flex" id="btnFiltrar">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Filtrar
                         <i class="fa-solid fa-filter"></i>
                     </button>
                 </div>
@@ -127,7 +128,6 @@
 
             <div>
                 <section class="mt-5" id="contenedorCards">
-
                     <div class="row d-flex justify-content-center px-0 px-lg-4 g-0">
                         <div v-if="arrayFarmacia.length == 0">
                             <div class="container">
@@ -149,49 +149,67 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-else class="col-sm-6 col-lg-4 text-center mb-4" v-for="(producto,i) in arrayFarmacia">
+                        <div v-else class="col-sm-6 col-lg-3 text-center mb-4" v-for="(producto,i) in arrayFarmacia">
                             <div class="card mx-3" style="border-radius: 20px;">
                                 <div class="my-1 mt-3 mx-3">
-                                    <img :src="producto.imagen" class="card-img-top" alt="...">
+                                    <img :src="producto.imagen" class="card-img-top imgcards" alt="...">
                                 </div>
-                                <div class="card-body justify-content-center">
-                                    <h5 class="card-title" style="color: #3298c7!important">{{producto.nombre}}</h5>
-                                    <div v-if="producto.stock > 3">
-                                        <span class="badge rounded-pill bg-info text-ligth mb-3">Stock: {{
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <div class="nameCard">
+                                        <h5 class="card-title" style="color: #3298c7!important">{{producto.nombre}}
+                                        </h5>
+
+                                    </div>
+                                    <div v-if="producto.stock > 3" class="mt-3">
+                                        <span class="badge rounded-pill bg-info text-ligth mb-2">Stock: {{
                                             producto.stock }}
                                         </span>
                                     </div>
-                                    <div v-else-if="3 >= producto.stock && producto.stock != 0">
-                                        <span class="badge rounded-pill text-ligth mb-3"
+                                    <div v-else-if="3 >= producto.stock && producto.stock != 0" class="mt-3">
+                                        <span class="badge rounded-pill text-ligth mb-2"
                                             style="background-color: #dcc335;">Stock: {{ producto.stock }} </span>
                                     </div>
-                                    <div v-else-if="producto.stock == 0">
-                                        <span class="badge rounded-pill text-ligth mb-3"
+                                    <div v-else-if="producto.stock == 0" class="mt-3">
+                                        <span class="badge rounded-pill text-ligth mb-2"
                                             style="background-color: #dc3545;">Stock: {{ producto.stock }} </span>
                                     </div>
 
-                                    <p>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-outline-primary btn-sm"
-                                            data-bs-toggle="modal" :data-bs-target="'#id' + producto._id">
-                                            Mas info!
+
+                                    <div class="padreBtnInfo">
+
+                                        <button class="buttonMoreInfo" data-bs-toggle="modal"
+                                            :data-bs-target="'#id' + producto._id">
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-telegram"
+                                                    fill="currentColor" width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                                </svg>
+                                            </div>
+                                            <p>Mas info!</p>
                                         </button>
 
-                                        <!-- Modal -->
+                                    </div>
+
+                                    <!-- Modal -->
                                     <div class="modal fade" :id="'id' + producto._id" data-bs-backdrop="static"
                                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Descripción</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Descripción
+                                                    </h5>
                                                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="card-text text-muted">{{producto.descripcion}}</p>
+                                                    <p class="card-text">{{producto.descripcion}}</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary"
+                                                    <button type="button" class="btn btn-close-modal"
                                                         data-bs-dismiss="modal">Cerrar</button>
                                                     <!-- <button type="button" class="btn btn-primary">Understood</button> -->
                                                 </div>
@@ -199,10 +217,12 @@
                                         </div>
                                     </div>
                                     </p>
-                                    <p class="card-text text-danger"> <strong>${{producto.precio}}</strong> </p>
-                                    <a @click="agregarProducto(producto)" class="btn btn-outline-success mb-2"
-                                        style="border-radius: 35px;">Agregar al
-                                        carro</a>
+                                    <p class="card-text txt-precio"> <strong>${{producto.precio}}</strong> </p>
+                                    <div class="btnPadreCards">
+                                        <a @click="agregarProducto(producto)" class="btn btn-outline-success mb-2"
+                                            style="border-radius: 35px;">Agregar al
+                                            carro</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -218,9 +238,9 @@
                     </div>
                     <div class="sidebar-content sidebar-div">
                         <div class="sidebar-content-2">
-                            <ul>
+                            <ul class="">
                                 <li class="mb-3" v-for="producto in storageCarrito">
-                                    <div class="card" style="width: 90%">
+                                    <div class="card ">
                                         <div class="card-horizontal">
                                             <div class="img-square-wrapper">
                                                 <img class="card-img-top card-img-cart" :src="producto.imagen"

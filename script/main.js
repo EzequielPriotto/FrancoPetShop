@@ -3,10 +3,10 @@ Vue.createApp({
   data() {
     return {
       data: [],
-      
+
       arrayJuguetes: [],
       arrayFarmacia: [],
-      
+
       storageListID: [],
       storageCarrito: [],
 
@@ -16,22 +16,26 @@ Vue.createApp({
       storageLength: 0,
       subtotalCarrito: 0,
       dondeEstoy: "",
-      
-      
+
+
       nombre: "",
       apellido: "",
       calificacion: 0,
       opinion: "",
       opinionesGuardadas: [
       ],
-      
+
       filtros: {
         rangoPrecio: 0,
         criterioOrden: "Relevancia",
         valorBusqueda: "",
       },
-      
+
       tipoEnvio: "retiro_fisico",
+      codigoDescuento: "",
+      precioTotal: 0,
+      isValido: "",
+
       nombreInput: "",
       apellidoInput: "",
       dniInput: "",
@@ -129,6 +133,10 @@ Vue.createApp({
           }
         })
       })
+
+    this.precioTotal = this.subtotalCarrito;
+
+
   },
   methods: {
     funcionOpiniones() {
@@ -173,7 +181,7 @@ Vue.createApp({
     agregarProducto(producto) {
       // GUARDAMOS AL PRODUCTO QUE SE QUIERE AGREGAR EN LA VARIABLE NUEVOPRODUCTO
       let nuevoProducto = producto
-      
+
       // GUARDAMOS TODOS LOS ID DE MI CARRITO DE LA BASE DE DATOS PARA COMPROBAR
       // SI YA EXISTE ALGUN PRODUCTO CON ESE ID EN NUESTRO CARRITO
       this.storageListID = this.storageCarrito.map(element => element._id)
@@ -391,7 +399,7 @@ Vue.createApp({
         preConfirm: () => {
           this.nombreInput = document.getElementById('swal-input1').value
           this.apellidoInput = document.getElementById('swal-input2').value
-          this.dniInput = document.getElementById('swal-input3').value  
+          this.dniInput = document.getElementById('swal-input3').value
         },
         showCancelButton: true,
 
@@ -401,12 +409,11 @@ Vue.createApp({
         if (result.isConfirmed && this.nombreInput != "" && this.apellidoInput != "" && this.dniInput != "") {
           var doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
           let array = this.storageCarrito
-
+          let precioFinal =  this.isValido ==  "Cupon Valido (35% off)" ? `${this.precioTotal} (Descuento del 35% off aplicado)`:  this.precioTotal
           function generateData(array) {
             let result = []
             let totalCant = 0;
             let totalsubtotal = 0;
-
             array.forEach(producto => {
               let data = {
                 "producto": `${producto.nombre}`,
@@ -414,15 +421,14 @@ Vue.createApp({
                 "precio x unidad": `$ ${producto.precio}`,
                 "subtotal": `$ ${producto.subtotal}`,
               }
-              totalCant += producto.cantidad
-              totalsubtotal += producto.subtotal
               result.push(data)
+              totalCant += producto.cantidad
             })
             let data = {
               "producto": "TOTAL",
               "cantidad": `${totalCant} unidades`,
               "precio x unidad": "----",
-              "subtotal": `$ ${totalsubtotal}`,
+              "subtotal": `$${precioFinal}`,
             }
             result.push(data)
             return result
@@ -462,9 +468,9 @@ Vue.createApp({
           doc.save('resumenCompra.pdf');
           this.storageCarrito = [];
           this.subtotalCarrito = 0;
-          this.dniInput= ""
-          this.apellidoInput= ""
-          this.nombreInput= ""
+          this.dniInput = ""
+          this.apellidoInput = ""
+          this.nombreInput = ""
           localStorage.setItem("cart", JSON.stringify(this.storageCarrito));
           location.reload();
 
@@ -474,9 +480,9 @@ Vue.createApp({
             icon: "error",
             title: "Parece que algo salio mal!",
           })
-          this.dniInput= ""
-          this.apellidoInput= ""
-          this.nombreInput= ""
+          this.dniInput = ""
+          this.apellidoInput = ""
+          this.nombreInput = ""
         }
       })
 
@@ -501,11 +507,13 @@ Vue.createApp({
           this.arrayJuguetes = this.arrayJuguetes.sort((a, b) => a.precio - b.precio);
         }
       }
-      else {
+      else{
+         const collator = new Intl.Collator('en');
+
         if (this.dondeEstoy == "farmacia") {
-          this.arrayFarmacia = [...this.originalFarmacia];
+          this.arrayFarmacia = this.arrayFarmacia.sort((a, b) => collator.compare(a._id, b._id));
         } else {
-          this.arrayJuguetes = [...this.originalJuguetes];
+          this.arrayJuguetes = this.arrayJuguetes.sort((a, b) => collator.compare(a._id, b._id));
         }
       }
 
@@ -548,6 +556,28 @@ Vue.createApp({
         this.arrayJuguetes = arrayJugueteFiltrado2;
       }
 
+    },
+    actualizarPrecio() {
+      this.precioTotal = this.subtotalCarrito;
+      let codigosDeDescuento = ["pepitoGamer", "eduardoCoin123", "zeke55", "goku123", "frankkaster", "GOKUTEAMO1234"]
+      if (this.codigoDescuento === "") {
+        this.isValido = ""
+      }
+      else {
+        let arrayAux = codigosDeDescuento;
+        codigo = arrayAux.filter(cupon => cupon == this.codigoDescuento)
+         
+
+        if (codigo.length > 0) {
+          this.isValido = "Cupon Valido (35% off)"
+          this.precioTotal = Math.round(this.precioTotal - (this.precioTotal * 0.35))
+        }
+        else {
+          this.precioTotal = this.subtotalCarrito;
+          this.isValido = "Cupon Invalido"
+        }
+
+      }
     }
   }
 }).mount('#app')

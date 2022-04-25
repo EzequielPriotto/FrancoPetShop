@@ -35,12 +35,14 @@
 }
 
 .sidebar{
-    z-index: 9999999;
+    z-index: 200000;
     display: block;
     position: fixed;
     left: 100%;
 }
-
+.swal2-container{
+    z-index: 999999999999 !important;
+}
 .sidebar-text{
     text-align: center;
 }
@@ -108,8 +110,10 @@
     border-left: 1px solid;
     border-right: 1px solid; 
     border-bottom: 1px solid;
-    /* background-color: white; */
-    background-color: rgb(255, 255, 255);
+    background-color: white;
+    /* background-color: rgb(255, 255, 255); */
+    background-image: url('../assets/stacked-waves-haikei\ \(1\).png');
+
 }
 
 .sidebar-bottom-item{
@@ -138,6 +142,10 @@
 .card-horizontal {
     display: flex;
     flex: 1 1 auto;
+    width: 100%;
+}
+.sidebar-content-2 ul{
+    padding: 0;
 }
 
 .img-square-wrapper{
@@ -243,14 +251,11 @@ td{
         width: 50px;
         height: 50px;
         background-color: white;
-        top: 85%;
-        left: 85%;
+        top: 92%;
+        left: 80%;
         transition: 0.5s;
         border-radius: 50%;
-        /* border-top: 1px solid;
-        border-left: 1px solid;
-        border-right: 1px solid; 
-        border-bottom: 1px solid;  */
+     
         border-color: black;
         padding-top: 0.6rem;
         padding-left: 0.8rem;
@@ -265,7 +270,7 @@ td{
     .sidebar-background{
         z-index: 10;
         height: 100%;
-        width: 60%;
+        width: 100%;
         position: fixed;
         z-index: 1;
         top: 0;
@@ -275,7 +280,7 @@ td{
     }
 
     .sidebar-background-active{
-        left: 40%;
+        left: 0%;
     }
     
     .sidebar-active{
@@ -285,4 +290,5 @@ td{
     .sidebar-toggle-active{
         left: 25%;
     }
+
 }

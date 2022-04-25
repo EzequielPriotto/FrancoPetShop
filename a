@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="juguetes">
+<html lang="en" id="farmacia">
 
 <head>
     <meta charset="UTF-8">
@@ -37,8 +37,8 @@
                         <div class="nav-b-container d-flex justify-content-evenly gap-1 gap-lg-1 py-3 p-lg-3">
     
                             <button class="buttonNav "> <span><a href="./index.html">HOME</a></span></button>
-                            <button class="buttonNav "> <span><a href="./farmacia.html">FARMACIA</a></span></button>
-                            <button class="buttonNav buttonNavActive"> <span><a href="#">JUGUETES</a></span></button>
+                            <button class="buttonNav buttonNavActive"> <span><a href="#">FARMACIA</a></span></button>
+                            <button class="buttonNav"> <span><a href="./juguetes.html">JUGUETES</a></span></button>
                             <button class="buttonNav"> <span><a href="./contact.html">CONTACTO</a></span></button>
     
                         </div>
@@ -107,6 +107,7 @@
                         </div>
                         <div class="modal-body">
                             <h4>Rango de Precio</h4>
+                            <!-- <input type="range" class="form-range" id="customRange1"  min="0" max="2000" step="250"> -->
                             <input type="range" list="precios" v-model="filtros.rangoPrecio" class="form-range" min="0"
                                 max="2000" step="250">
                             <p>Desde $0 hasta ${{filtros.rangoPrecio}}</p>
@@ -129,7 +130,7 @@
                 <section class="mt-5" id="contenedorCards">
 
                     <div class="row d-flex justify-content-center px-0 px-lg-4 g-0">
-                        <div v-if="arrayJuguetes.length == 0">
+                        <div v-if="arrayFarmacia.length == 0">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -149,7 +150,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-else class="col-sm-6 col-lg-3 text-center mb-4" v-for="(producto,i) in arrayJuguetes">
+                        <div v-else class="col-sm-6 col-lg-3 text-center mb-4" v-for="(producto,i) in arrayFarmacia">
                             <div class="card mx-3" style="border-radius: 20px;">
                                 <div class="my-1 mt-3 mx-3">
                                     <img :src="producto.imagen" class="card-img-top imgcards" alt="...">
@@ -204,7 +205,7 @@
                                                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="card-text text-muted">{{producto.descripcion}}</p>
+                                                    <p class="card-text">{{producto.descripcion}}</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-close-modal"

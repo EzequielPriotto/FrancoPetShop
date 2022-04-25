@@ -105,10 +105,7 @@
                     <div class = "checkout-table">
                         <table class = "table table-bordered table-responsive">
                             <tbody>
-                                <tr>
-                                    <th> Total </th>
-                                    <td style = "text-align: center;"> ${{ tipoEnvio === "retiro_fisico"? subtotalCarrito : subtotalCarrito + 600}} </td>
-                                </tr>
+                             
                                 <tr>
                                     <th>
                                         <p> Entrega de tu compra </p>
@@ -125,6 +122,18 @@
                                                 Envio nacional ($600)</li>
                                         </ul>
                                     </td>
+                                </tr>
+                                <tr>
+                                    
+                                    <th>Cupon de Descuento</th>
+                                    <td style = "text-align: center;"> 
+                                        <label><input type="text" class="text-center" v-model="codigoDescuento" style="width: 90%; border: 0px;" placeholder="codigo de descuento"></input> {{isValido}}</label>
+                                     </td>
+                                    {{actualizarPrecio}}
+                                </tr>
+                                <tr>
+                                    <th> Total </th>
+                                    <td style = "text-align: center;"> ${{ tipoEnvio === "retiro_fisico"? precioTotal : precioTotal + 600}} </td>
                                 </tr>
                             </tbody>
                         </table>
